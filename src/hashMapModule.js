@@ -1,0 +1,196 @@
+//Hash map
+
+//Synthax:
+//Add synthax later
+
+export { hashMap };
+
+import { createLinkedList } from './linkedListModule';
+
+//functions
+
+function hashMap() {
+  const map = {};
+  map.array = [];
+  map.array.length = 16;
+  map.capacity = 16;
+  map.loadFactor = 0.75;
+
+  //Takes a key and produces a hash code with it
+  map.hash = function (key) {
+    let hashCode = 0;
+
+    const primeNumber = 31;
+    for (let i = 0; i < key.length; i++) {
+      //added % 16 as the initial array length is 16
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16;
+    }
+
+    return hashCode;
+  };
+
+  //Takes two arguments, a key and a value that is assigned to this key - places
+  //the key - value pair in a bucket (linked list in an array element).
+  //If a key already exists, then the old value is overwritten.
+  //If a key does not exist in the bucket, a node is created in a linked list.
+  map.set = function (key, value) {
+    let objectToInsert = { [key]: value };
+
+    let index = map.hash(key);
+
+    //self-imposed restriction (by the Odin project)
+    if (index < 0 || index >= map.array.length) {
+      throw new Error('Trying to access index out of bound');
+    }
+
+    console.log(objectToInsert);
+
+    //checks if array element is empty
+    if (map.array[index] === undefined) {
+      let linkedList = createLinkedList();
+      linkedList.append(objectToInsert);
+
+      map.array.splice(index, 1, linkedList);
+      //checks if linked list is created but is empty
+    } else if (
+      map.array[index] !== undefined &&
+      map.array[index].head === null
+    ) {
+      map.array[index].append(objectToInsert);
+    } else {
+      //using map.array[index] as unable to use linkedList variable
+      let currentNode = map.array[index].head; //starting point for the for loop
+      let linkedListLength = map.array[index].size();
+
+      for (let i = 0; i < linkedListLength; i++) {
+        console.log('starting loop');
+        //if the key already present in the bucket - overwrite
+        if (Object.hasOwn(currentNode.value, key)) {
+          currentNode.value = objectToInsert;
+          console.log('replaced the value of an existing node');
+        } else {
+          currentNode = currentNode.nextNode;
+
+          //if key not present in bucket - add a node to linked list
+          if (currentNode === null) {
+            map.array[index].append(objectToInsert);
+            console.log('added a new node');
+          }
+        }
+      }
+    }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //add function to expand buckets
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  };
+
+  //Takes one argument as a key and returns the value that is assigned to this key
+  //If a key is not found, returns null
+  map.get = function (key) {
+    let index = map.hash(key);
+    let value = null;
+
+    console.log(index);
+
+    //checks if array element is empty
+    if (map.array[index] === undefined) {
+      console.log(value);
+      return value;
+    } else {
+      let currentNode = map.array[index].head; //starting point for the for loop
+      let linkedListLength = map.array[index].size();
+
+      for (let i = 0; i < linkedListLength; i++) {
+        console.log('starting loop');
+        //if bucket not empty and key is found
+        if (Object.hasOwn(currentNode.value, key)) {
+          value = currentNode.value[key];
+          console.log('found');
+          console.log(value);
+          return value;
+        } else {
+          currentNode = currentNode.nextNode;
+
+          //if bucket not empty but key is not found
+          if (currentNode === null) {
+            console.log('not found');
+            console.log(value);
+            return value;
+          }
+        }
+      }
+    }
+  };
+
+  //takes a key as an argument and returns true or false based on whether or not
+  //the key is in the hash map
+  map.has = function (key) {
+    let index = map.hash(key);
+
+    console.log(index);
+
+    //checks if array element is empty
+    if (map.array[index] === undefined) {
+      console.log('false');
+      return false;
+    } else {
+      let currentNode = map.array[index].head; //starting point for the for loop
+      let linkedListLength = map.array[index].size();
+
+      for (let i = 0; i < linkedListLength; i++) {
+        console.log('starting loop');
+        //if bucket not empty and key is found
+        if (Object.hasOwn(currentNode.value, key)) {
+          console.log('true');
+          return true;
+        } else {
+          currentNode = currentNode.nextNode;
+
+          //if bucket not empty but key is not found
+          if (currentNode === null) {
+            console.log('false');
+            return false;
+          }
+        }
+      }
+    }
+  };
+
+  //Takes a key as an argument.
+  //If the given key is in the hash map, removes the entry and returns true.
+  //If the key isn’t in the hash map, it should returns false.
+  map.remove = function (key) {
+    let index = map.hash(key);
+
+    console.log(index);
+
+    //checks if array element is empty
+    if (map.array[index] === undefined) {
+      console.log('false');
+      return false;
+    } else {
+      let currentNode = map.array[index].head; //starting point for the for loop
+      let linkedListLength = map.array[index].size();
+
+      for (let i = 0; i < linkedListLength; i++) {
+        console.log('starting loop');
+        //if bucket not empty and key is found
+        if (Object.hasOwn(currentNode.value, key)) {
+          map.array[index].removeAt(currentNode.index); //removes the node
+          console.log('true');
+          return true;
+        } else {
+          currentNode = currentNode.nextNode;
+
+          //if bucket not empty but key is not found
+          if (currentNode === null) {
+            console.log('false');
+            return false;
+          }
+        }
+      }
+    }
+  };
+
+  return map;
+}

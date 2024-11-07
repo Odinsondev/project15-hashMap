@@ -1,7 +1,7 @@
 {
-  "name": "template1",
+  "name": "project15-hashmap",
   "version": "1.0.0",
-  "description": "Template repository - Webpack",
+  "description": "My fifteenth Odin project - Hash Map",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

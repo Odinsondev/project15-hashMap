@@ -1,15 +1,64 @@
 import './normalize.css';
 import './style.css';
-//import other stylesheets
 
-/* import functionName from './javascriptFile'; */
-
-/* import pictureName from './imagedDirectory/imageName'; */
-
-//initialize
+import { hashMap } from './hashMapModule';
+import { createLinkedList } from './linkedListModule';
 
 //cache DOM
 
 //bind events
 
 //functions
+console.log('Testing: set');
+
+const newHashMap = hashMap();
+console.log(newHashMap.hash('a'));
+newHashMap.set('a', 'test');
+
+console.log(newHashMap.hash('a'));
+newHashMap.set('a', 'testnew');
+
+console.log(newHashMap.hash('ab'));
+newHashMap.set('ab', 'test2');
+
+console.log(newHashMap.hash('ab'));
+newHashMap.set('ab', 'test2new');
+
+console.log(newHashMap.hash('ak'));
+newHashMap.set('ak', 'test3');
+
+console.log(newHashMap.array);
+
+console.log('Testing: get');
+console.log('Test1:');
+newHashMap.get('a');
+console.log('Test2:');
+newHashMap.get('ab');
+console.log('Test:3');
+newHashMap.get('bc');
+console.log('Test4:');
+newHashMap.get('fghdf');
+console.log('Test5:');
+newHashMap.get('ak');
+
+console.log('Testing: has');
+console.log('Test1:');
+newHashMap.has('a');
+console.log('Test2:');
+newHashMap.has('ab');
+console.log('Test:3');
+newHashMap.has('bc');
+console.log('Test4:');
+newHashMap.has('fghdf');
+console.log('Test5:');
+newHashMap.has('ak');
+console.log(newHashMap.array);
+
+console.log('Testing: remove');
+newHashMap.remove('a');
+console.log(newHashMap.array);
+newHashMap.remove('ab');
+console.log(newHashMap.array);
+
+newHashMap.set('a', 'test');
+console.log(newHashMap.array);
