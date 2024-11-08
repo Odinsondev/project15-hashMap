@@ -2,86 +2,60 @@ import './normalize.css';
 import './style.css';
 
 import { hashMap } from './hashMapModule';
-import { createLinkedList } from './linkedListModule';
 
 //cache DOM
 
 //bind events
 
 //functions
-console.log('Testing: set');
 
-const newHashMap = hashMap();
-console.log(newHashMap.hash('a'));
-newHashMap.set('a', 'test');
+const test = hashMap();
 
-console.log(newHashMap.hash('a'));
-newHashMap.set('a', 'testnew');
+test.set('apple', 'red');
+test.set('banana', 'yellow');
+test.set('carrot', 'orange');
+test.set('dog', 'brown');
+test.set('elephant', 'gray');
+test.set('frog', 'green');
+test.set('grape', 'purple');
+test.set('hat', 'black');
+test.set('ice cream', 'white');
+test.set('jacket', 'blue');
+test.set('kite', 'pink');
+test.set('lion', 'golden');
 
-console.log(newHashMap.hash('ab'));
-newHashMap.set('ab', 'test2');
+console.log(test.array);
 
-console.log(newHashMap.hash('ab'));
-newHashMap.set('ab', 'test2new');
+test.set('apple', 'red2');
+test.set('banana', 'yellow2');
+test.set('carrot', 'orange2');
+test.set('dog', 'brown2');
+test.set('elephant', 'gray2');
+test.set('frog', 'green2');
+test.set('grape', 'purple2');
+test.set('hat', 'black2');
+test.set('ice cream', 'white2');
+test.set('jacket', 'blue2');
+test.set('kite', 'pink2');
+test.set('lion', 'golden2');
 
-console.log(newHashMap.hash('ak'));
-newHashMap.set('ak', 'test3');
+console.log(test.array);
 
-console.log(newHashMap.array);
+test.set('moon', 'silver');
 
-console.log('Testing: get');
-console.log('Test1:');
-newHashMap.get('a');
-console.log('Test2:');
-newHashMap.get('ab');
-console.log('Test:3');
-newHashMap.get('bc');
-console.log('Test4:');
-newHashMap.get('fghdf');
-console.log('Test5:');
-newHashMap.get('ak');
+console.log(test.array);
 
-console.log('Testing: has');
-console.log('Test1:');
-newHashMap.has('a');
-console.log('Test2:');
-newHashMap.has('ab');
-console.log('Test:3');
-newHashMap.has('bc');
-console.log('Test4:');
-newHashMap.has('fghdf');
-console.log('Test5:');
-newHashMap.has('ak');
-console.log(newHashMap.array);
+test.set('apple', 'red3');
+test.set('banana', 'yellow3');
+test.set('carrot', 'orange3');
+test.set('dog', 'brown3');
+test.set('elephant', 'gray3');
+test.set('frog', 'green3');
+test.set('grape', 'purple3');
+test.set('hat', 'black3');
+test.set('ice cream', 'white3');
+test.set('jacket', 'blue3');
+test.set('kite', 'pink3');
+test.set('lion', 'golden3');
 
-console.log('Testing: remove');
-newHashMap.remove('a');
-console.log(newHashMap.array);
-newHashMap.remove('ab');
-console.log(newHashMap.array);
-
-newHashMap.set('a', 'test');
-console.log(newHashMap.array);
-
-console.log('Testing: length');
-newHashMap.length();
-
-/* console.log('Testing: clear');
-newHashMap.clear();
-console.log(newHashMap.array); */
-
-console.log('Testing: keys');
-newHashMap.keys();
-
-console.log('Testing: values');
-newHashMap.values();
-
-console.log('Testing: entries');
-newHashMap.entries();
-
-console.log('Testing: grow');
-newHashMap.grow();
-console.log(newHashMap.array);
-
-newHashMap.grow();
-console.log(newHashMap.array);
+console.log(test.array);

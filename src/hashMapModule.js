@@ -17,23 +17,24 @@ function hashMap() {
   map.loadFactor = 0.75;
   map.totalKeys = 0;
 
-  //Grows the array by 2x when load factor is reached
+  //Grows the array by 2x when load factor is exceeded
   map.grow = function () {
     let keyLimit = this.capacity * this.loadFactor;
 
-    if (keyLimit > this.length()) {
-      console.log('working');
-      //change to <
+    if (keyLimit < this.length()) {
       let savedEntries = this.entries();
       let newCapacity = this.capacity * 2;
       this.clear();
       this.array.length = newCapacity;
       this.capacity = newCapacity;
+      this.totalKeys = 0;
       for (let i = 0; i < savedEntries.length; i++) {
         let key = savedEntries[i][0];
         let value = savedEntries[i][1];
         this.set(key, value);
       }
+    } else {
+      return;
     }
   };
 
@@ -70,9 +71,10 @@ function hashMap() {
     if (map.array[index] === undefined) {
       let linkedList = createLinkedList();
       linkedList.append(objectToInsert);
-      map.totalKeys += 1; //counts keys in hash map
 
       map.array.splice(index, 1, linkedList);
+
+      map.totalKeys += 1; //counts keys in hash map
 
       //checks if linked list is created but is empty
     } else if (
@@ -104,9 +106,7 @@ function hashMap() {
         }
       }
     }
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //add function to expand buckets
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    map.grow();
   };
 
   //Takes one argument as a key and returns the value that is assigned to this key
