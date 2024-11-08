@@ -15,6 +15,27 @@ function hashMap() {
   map.array.length = 16;
   map.capacity = 16;
   map.loadFactor = 0.75;
+  map.totalKeys = 0;
+
+  //Grows the array by 2x when load factor is reached
+  map.grow = function () {
+    let keyLimit = this.capacity * this.loadFactor;
+
+    if (keyLimit > this.length()) {
+      console.log('working');
+      //change to <
+      let savedEntries = this.entries();
+      let newCapacity = this.capacity * 2;
+      this.clear();
+      this.array.length = newCapacity;
+      this.capacity = newCapacity;
+      for (let i = 0; i < savedEntries.length; i++) {
+        let key = savedEntries[i][0];
+        let value = savedEntries[i][1];
+        this.set(key, value);
+      }
+    }
+  };
 
   //Takes a key and produces a hash code with it
   map.hash = function (key) {
@@ -23,7 +44,7 @@ function hashMap() {
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
       //added % 16 as the initial array length is 16
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % map.capacity;
     }
 
     return hashCode;
@@ -49,14 +70,17 @@ function hashMap() {
     if (map.array[index] === undefined) {
       let linkedList = createLinkedList();
       linkedList.append(objectToInsert);
+      map.totalKeys += 1; //counts keys in hash map
 
       map.array.splice(index, 1, linkedList);
+
       //checks if linked list is created but is empty
     } else if (
       map.array[index] !== undefined &&
       map.array[index].head === null
     ) {
       map.array[index].append(objectToInsert);
+      map.totalKeys += 1;
     } else {
       //using map.array[index] as unable to use linkedList variable
       let currentNode = map.array[index].head; //starting point for the for loop
@@ -74,6 +98,7 @@ function hashMap() {
           //if key not present in bucket - add a node to linked list
           if (currentNode === null) {
             map.array[index].append(objectToInsert);
+            map.totalKeys += 1;
             console.log('added a new node');
           }
         }
@@ -177,6 +202,7 @@ function hashMap() {
         //if bucket not empty and key is found
         if (Object.hasOwn(currentNode.value, key)) {
           map.array[index].removeAt(currentNode.index); //removes the node
+          map.totalKeys -= 1;
           console.log('true');
           return true;
         } else {
@@ -190,6 +216,87 @@ function hashMap() {
         }
       }
     }
+  };
+
+  //Returns the number of stored keys in the hash map
+  map.length = function () {
+    console.log(map.totalKeys);
+    return map.totalKeys;
+  };
+
+  //Removes all entries in the hash map
+  map.clear = function () {
+    map.array.length = 0;
+    map.array.length = map.capacity;
+  };
+
+  //Returns an array containing all the keys inside the hash map
+  map.keys = function () {
+    let arrayOfKeys = [];
+
+    for (let i = 0; i < map.array.length; i++) {
+      if (map.array[i] !== undefined) {
+        let currentNode = map.array[i].head; //starting point for the for loop
+        let linkedListLength = map.array[i].size();
+
+        for (let i = 0; i < linkedListLength; i++) {
+          if (currentNode !== null) {
+            let key = Object.keys(currentNode.value);
+            arrayOfKeys = arrayOfKeys.concat(key);
+            currentNode = currentNode.nextNode;
+          }
+        }
+      }
+    }
+    console.log(arrayOfKeys);
+    return arrayOfKeys;
+  };
+
+  //Returns an array containing all the values
+  map.values = function () {
+    let arrayOfValues = [];
+
+    for (let i = 0; i < map.array.length; i++) {
+      if (map.array[i] !== undefined) {
+        let currentNode = map.array[i].head; //starting point for the for loop
+        let linkedListLength = map.array[i].size();
+
+        for (let i = 0; i < linkedListLength; i++) {
+          if (currentNode !== null) {
+            let value = Object.values(currentNode.value);
+            arrayOfValues = arrayOfValues.concat(value);
+            currentNode = currentNode.nextNode;
+          }
+        }
+      }
+    }
+    console.log(arrayOfValues);
+    return arrayOfValues;
+  };
+
+  //Returns an array that contains each key, value pair.
+  //Example: [[firstKey, firstValue], [secondKey, secondValue]]
+  map.entries = function () {
+    let arrayOfEntries = [];
+
+    for (let i = 0; i < map.array.length; i++) {
+      if (map.array[i] !== undefined) {
+        let currentNode = map.array[i].head; //starting point for the for loop
+        let linkedListLength = map.array[i].size();
+
+        for (let i = 0; i < linkedListLength; i++) {
+          if (currentNode !== null) {
+            let key = Object.keys(currentNode.value);
+            let value = Object.values(currentNode.value);
+            let entry = key.concat(value);
+            arrayOfEntries.push(entry);
+            currentNode = currentNode.nextNode;
+          }
+        }
+      }
+    }
+    console.log(arrayOfEntries);
+    return arrayOfEntries;
   };
 
   return map;

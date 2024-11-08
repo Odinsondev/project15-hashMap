@@ -62,3 +62,26 @@ console.log(newHashMap.array);
 
 newHashMap.set('a', 'test');
 console.log(newHashMap.array);
+
+console.log('Testing: length');
+newHashMap.length();
+
+/* console.log('Testing: clear');
+newHashMap.clear();
+console.log(newHashMap.array); */
+
+console.log('Testing: keys');
+newHashMap.keys();
+
+console.log('Testing: values');
+newHashMap.values();
+
+console.log('Testing: entries');
+newHashMap.entries();
+
+console.log('Testing: grow');
+newHashMap.grow();
+console.log(newHashMap.array);
+
+newHashMap.grow();
+console.log(newHashMap.array);
