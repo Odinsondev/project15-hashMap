@@ -5,26 +5,35 @@ import { hashMap } from './hashMapModule';
 
 //cache DOM
 
+const testHashMap = hashMap();
+testHashMap.set('apple', 'red');
+testHashMap.set('banana', 'yellow');
+testHashMap.set('carrot', 'orange');
+testHashMap.set('dog', 'brown');
+testHashMap.set('elephant', 'gray');
+testHashMap.set('frog', 'green');
+testHashMap.set('grape', 'purple');
+testHashMap.set('hat', 'black');
+testHashMap.set('ice cream', 'white');
+testHashMap.set('jacket', 'blue');
+testHashMap.set('kite', 'pink');
+testHashMap.set('lion', 'golden');
+
+const mapContainer = document.getElementById('map-container');
 //bind events
 
 //functions
 
-const test = hashMap();
+function renderHashMap() {
+  for (let i = 0; i < testHashMap.array.length; i++) {
+    const arrayElement = document.createElement('div');
+    arrayElement.classList.add('array-element');
+    mapContainer.appendChild(arrayElement);
+  }
+}
+renderHashMap();
 
-test.set('apple', 'red');
-test.set('banana', 'yellow');
-test.set('carrot', 'orange');
-test.set('dog', 'brown');
-test.set('elephant', 'gray');
-test.set('frog', 'green');
-test.set('grape', 'purple');
-test.set('hat', 'black');
-test.set('ice cream', 'white');
-test.set('jacket', 'blue');
-test.set('kite', 'pink');
-test.set('lion', 'golden');
-
-console.log(test.array);
+/* console.log(test.array);
 
 test.set('apple', 'red2');
 test.set('banana', 'yellow2');
@@ -58,4 +67,4 @@ test.set('jacket', 'blue3');
 test.set('kite', 'pink3');
 test.set('lion', 'golden3');
 
-console.log(test.array);
+console.log(test.array); */
