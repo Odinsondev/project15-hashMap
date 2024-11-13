@@ -19,52 +19,63 @@ testHashMap.set('jacket', 'blue');
 testHashMap.set('kite', 'pink');
 testHashMap.set('lion', 'golden');
 
+const content2 = document.getElementById('content2');
 const mapContainer = document.getElementById('map-container');
 //bind events
 
 //functions
 
 function renderHashMap() {
+  mapContainer.innerHTML = ''; //clears the div when rerunning function
+  //creates array elements
   for (let i = 0; i < testHashMap.array.length; i++) {
-    const arrayElement = document.createElement('div');
-    arrayElement.classList.add('array-element');
-    mapContainer.appendChild(arrayElement);
+    if (testHashMap.array[i] === undefined) {
+      const emptyArrayElement = document.createElement('div');
+      emptyArrayElement.classList.add('empty-array-element');
+
+      //calculates div size based on number of elements
+      emptyArrayElement.style.width =
+        (content2.offsetWidth - 100) / testHashMap.capacity + 'px';
+
+      mapContainer.appendChild(emptyArrayElement);
+    } else {
+      const arrayElement = document.createElement('div');
+      arrayElement.classList.add('array-element');
+
+      //creates linked list nodes
+      for (let j = 0; j < testHashMap.array[i].size(); j++) {
+        const linkedListNode = document.createElement('div');
+        linkedListNode.classList.add('linked-list-node');
+
+        linkedListNode.style.width =
+          (content2.offsetWidth - 100) / testHashMap.capacity + 'px';
+
+        let currentNode = testHashMap.array[i].at(j + 1);
+
+        const keyText = document.createElement('p');
+        keyText.textContent = 'K: ' + Object.keys(currentNode.value);
+        linkedListNode.appendChild(keyText);
+
+        const valueText = document.createElement('p');
+        valueText.textContent = 'V: ' + Object.values(currentNode.value);
+        linkedListNode.appendChild(valueText);
+
+        arrayElement.appendChild(linkedListNode);
+      }
+      mapContainer.appendChild(arrayElement);
+    }
   }
 }
 renderHashMap();
 
-/* console.log(test.array);
+window.onresize = renderHashMap;
 
+/*
+//test1 - overwrite
 test.set('apple', 'red2');
-test.set('banana', 'yellow2');
-test.set('carrot', 'orange2');
-test.set('dog', 'brown2');
-test.set('elephant', 'gray2');
-test.set('frog', 'green2');
-test.set('grape', 'purple2');
-test.set('hat', 'black2');
-test.set('ice cream', 'white2');
-test.set('jacket', 'blue2');
-test.set('kite', 'pink2');
-test.set('lion', 'golden2');
-
-console.log(test.array);
-
+//test2 - grow
 test.set('moon', 'silver');
-
-console.log(test.array);
-
+//test3 - overwrite2
 test.set('apple', 'red3');
 test.set('banana', 'yellow3');
-test.set('carrot', 'orange3');
-test.set('dog', 'brown3');
-test.set('elephant', 'gray3');
-test.set('frog', 'green3');
-test.set('grape', 'purple3');
-test.set('hat', 'black3');
-test.set('ice cream', 'white3');
-test.set('jacket', 'blue3');
-test.set('kite', 'pink3');
-test.set('lion', 'golden3');
-
-console.log(test.array); */
+*/

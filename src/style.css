@@ -19,6 +19,7 @@ body {
 :root {
   --background1: rgb(40, 32, 63);
   --background2: rgb(55, 46, 82);
+  --background3: rgb(170, 152, 208);
   --text1: rgb(187, 175, 212);
   --text2: rgb(0, 0, 0);
   --text-footer: rgb(187, 175, 212);
@@ -60,7 +61,7 @@ body {
 }
 
 #content2 {
-  grid-column: 2 / 3;
+  grid-column: 1 / 4;
   grid-row: 3 / 4;
 
   display: flex;
@@ -69,7 +70,7 @@ body {
 
   background-color: var(--background2);
   border-radius: 5px;
-  margin: 10px 10px 50px 10px;
+  margin: 10px 100px 50px 100px;
   box-shadow: 5px 5px 5px rgb(21, 17, 33);
 }
 
@@ -77,10 +78,26 @@ body {
 #map-container {
   display: flex;
 }
-.array-element {
-  width: 50px;
-  height: 20px;
-  border: 1px solid red;
+.empty-array-element {
+  background-color: var(--background3);
+  height: 40px;
+  border: 1px solid var(--background2);
+  border-radius: 3px;
+}
+/* .array-element {
+  border: 1px solid green;
+} */
+.linked-list-node {
+  background-color: var(--background3);
+  height: 40px;
+  border: 1px solid var(--background2);
+  border-radius: 3px;
+}
+.linked-list-node > p {
+  font-size: 0.8rem;
+  margin: 3px;
+  overflow: hidden;
+  text-wrap: nowrap;
 }
 
 #text-container {
