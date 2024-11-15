@@ -44,7 +44,7 @@ function hashMap() {
 
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      //added % 16 as the initial array length is 16
+      //added % map.capacity (initially 16) to get hasCode between 0 - 15
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % map.capacity;
     }
 
@@ -57,15 +57,12 @@ function hashMap() {
   //If a key does not exist in the bucket, a node is created in a linked list.
   map.set = function (key, value) {
     let objectToInsert = { [key]: value };
-
     let index = map.hash(key);
 
     //self-imposed restriction (by the Odin project)
     if (index < 0 || index >= map.array.length) {
       throw new Error('Trying to access index out of bound');
     }
-
-    console.log(objectToInsert);
 
     //checks if array element is empty
     if (map.array[index] === undefined) {
@@ -84,16 +81,13 @@ function hashMap() {
       map.array[index].append(objectToInsert);
       map.totalKeys += 1;
     } else {
-      //using map.array[index] as unable to use linkedList variable
       let currentNode = map.array[index].head; //starting point for the for loop
       let linkedListLength = map.array[index].size();
 
       for (let i = 0; i < linkedListLength; i++) {
-        console.log('starting loop');
         //if the key already present in the bucket - overwrite
         if (Object.hasOwn(currentNode.value, key)) {
           currentNode.value = objectToInsert;
-          console.log('replaced the value of an existing node');
         } else {
           currentNode = currentNode.nextNode;
 
@@ -101,7 +95,6 @@ function hashMap() {
           if (currentNode === null) {
             map.array[index].append(objectToInsert);
             map.totalKeys += 1;
-            console.log('added a new node');
           }
         }
       }
@@ -115,8 +108,6 @@ function hashMap() {
     let index = map.hash(key);
     let value = null;
 
-    console.log(index);
-
     //checks if array element is empty
     if (map.array[index] === undefined) {
       console.log(value);
@@ -126,11 +117,9 @@ function hashMap() {
       let linkedListLength = map.array[index].size();
 
       for (let i = 0; i < linkedListLength; i++) {
-        console.log('starting loop');
         //if bucket not empty and key is found
         if (Object.hasOwn(currentNode.value, key)) {
           value = currentNode.value[key];
-          console.log('found');
           console.log(value);
           return value;
         } else {
@@ -138,7 +127,6 @@ function hashMap() {
 
           //if bucket not empty but key is not found
           if (currentNode === null) {
-            console.log('not found');
             console.log(value);
             return value;
           }
@@ -152,8 +140,6 @@ function hashMap() {
   map.has = function (key) {
     let index = map.hash(key);
 
-    console.log(index);
-
     //checks if array element is empty
     if (map.array[index] === undefined) {
       console.log('false');
@@ -163,7 +149,6 @@ function hashMap() {
       let linkedListLength = map.array[index].size();
 
       for (let i = 0; i < linkedListLength; i++) {
-        console.log('starting loop');
         //if bucket not empty and key is found
         if (Object.hasOwn(currentNode.value, key)) {
           console.log('true');
@@ -187,8 +172,6 @@ function hashMap() {
   map.remove = function (key) {
     let index = map.hash(key);
 
-    console.log(index);
-
     //checks if array element is empty
     if (map.array[index] === undefined) {
       console.log('false');
@@ -198,7 +181,6 @@ function hashMap() {
       let linkedListLength = map.array[index].size();
 
       for (let i = 0; i < linkedListLength; i++) {
-        console.log('starting loop');
         //if bucket not empty and key is found
         if (Object.hasOwn(currentNode.value, key)) {
           map.array[index].removeAt(currentNode.index); //removes the node
@@ -220,14 +202,15 @@ function hashMap() {
 
   //Returns the number of stored keys in the hash map
   map.length = function () {
-    console.log(map.totalKeys);
     return map.totalKeys;
   };
 
   //Removes all entries in the hash map
   map.clear = function () {
     map.array.length = 0;
-    map.array.length = map.capacity;
+    map.array.length = 16;
+    map.capacity = 16;
+    map.totalKeys = 0;
   };
 
   //Returns an array containing all the keys inside the hash map

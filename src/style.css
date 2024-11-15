@@ -49,14 +49,8 @@ body {
   text-align: center;
 }
 
-#input,
-#input2,
-#input4 {
+#input2 {
   margin-right: 10px;
-}
-
-#input2,
-#input4 {
   max-width: 75px;
 }
 
@@ -74,25 +68,24 @@ body {
   box-shadow: 5px 5px 5px rgb(21, 17, 33);
 }
 
-/* new */
 #map-container {
   display: flex;
 }
+
 .empty-array-element {
   background-color: var(--background3);
   height: 40px;
   border: 1px solid var(--background2);
   border-radius: 3px;
 }
-/* .array-element {
-  border: 1px solid green;
-} */
+
 .linked-list-node {
   background-color: var(--background3);
   height: 40px;
   border: 1px solid var(--background2);
   border-radius: 3px;
 }
+
 .linked-list-node > p {
   font-size: 0.8rem;
   margin: 3px;
@@ -104,8 +97,7 @@ body {
   text-align: center;
 }
 
-#result-text,
-#linked-list-string {
+#result-text {
   color: var(--text1);
 }
 
