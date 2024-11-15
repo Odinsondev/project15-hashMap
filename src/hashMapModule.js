@@ -1,7 +1,12 @@
 //Hash map
+//uses linkedListModule.js
 
 //Synthax:
-//Add synthax later
+//create list -   const hashMapName = hashMap();
+//edit list -   hashMapName.methodName();
+//Methods: hash(key), set(key, value), get(key), has(key), remove(key),
+//length, clear, keys, values, entries
+//detailed explanations before each function
 
 export { hashMap };
 
